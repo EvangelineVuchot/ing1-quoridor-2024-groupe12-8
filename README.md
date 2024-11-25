@@ -27,3 +27,5 @@ Le code est à réalisé en prenant en compte les contraintes suivantes :
       -Pour placé une barrières le joueur peu saisir les coordonnées de 2 cases voisines ou bien déplacer le début et fin de barrière, en respectant        la longueur des 2 cases
       -En cas d'impossiblitité le coup n'est pas pris enc compte et le joueur rejoue
       -Les barrières sont représentées par la letter 'B'
+-La possibilité d'interompre la partie en cours, elle doit être sauvegardée pour être reprise ulterieurement.
+
