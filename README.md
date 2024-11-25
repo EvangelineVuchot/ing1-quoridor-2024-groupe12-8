@@ -10,7 +10,8 @@ CAZAU Thomas
 Objectif du projet :
 Écrire en langage C le code du jeu de société Quoridor en respectant certaines fonctionnalités pour le jeu de base.
 -->Le quoridor est un jeu de stratégie combinatoire pour 2 à 4 joueurs.
-   Le jeu prend place sur un plateau de 9x9 case. Pour la partie à deux joueurs, les pions sont positionnés l'un en face de l'autre sur les bords du plateau, pour la partie à quatre joueurs les pions sont positionnés sur chaque bord du plateau.
+   Le jeu prend place sur un plateau de 9x9 case. Pour la partie à deux joueurs, les pions sont positionnés l'un en face de l'autre sur les bords du 
+   plateau, pour la partie à quatre joueurs les pions sont positionnés sur chaque bord du plateau.
    Le but du jeu est d'être le premier à atteindre la ligne opposée.
    Déroulement de la partie : A tour de rôle, chacun déplace son pion d'une case ou pose une barrière pour ralentir un adversaire.
    Les pions doivent contourner les barrières pour arriver le plus rapidement sur la ligne opposée.
@@ -38,3 +39,12 @@ Le code est à réaliser en prenant en compte les contraintes suivantes :
       -Les barrières sont représentées par la lettre 'B'
 -La possibilité d'interrompre la partie en cours, elle doit être sauvegardée pour être reprise ultérieurement.
 -En fin d'opération, toujours redirigée vers le menu principal.
+
+Précision du déroulement de la partie :
+-L'ordre des joueurs est défini au hasard, chaque joueur joue à tour de rôle.
+-Les choix d'option de coup sont les suivants :
+    Déplacer son pion d'une case. 
+    Poser une barrière entre 2 blocs de cases .
+    Passer son tour .
+    Annuler le coup du joueur précédemment.
+
