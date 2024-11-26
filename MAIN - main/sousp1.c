@@ -139,6 +139,7 @@ void afficherPlateau(char plateau[SIZE][SIZE][4], int GameMode, GameState *state
                 printf("%s ", c);
             }
         }
+        
         // Affichage des informations sur les joueurs et barrières
         if (i == 1) {
             printf("   Joueur 1 : %s (Pion BLEU)", pseudos[0].pseudos);
@@ -339,6 +340,7 @@ void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
                 }
             }
         }
+        
         // Si on ne peut pas sauter, vérifier les déplacements diagonaux
         int deltaX = opponentX - *x;
         int deltaY = opponentY - *y;
@@ -561,6 +563,7 @@ void initialiserDemo(char plateau[SIZE][SIZE][4], int *x1, int *y1,
                      int *x2, int *y2, int *x3, int *y3, int *x4, int *y4,
                      int *tour, int *GameMode, GameState *state) {
 
+    
     // Initialiser le plateau
     initialiserPlateau(plateau);
 

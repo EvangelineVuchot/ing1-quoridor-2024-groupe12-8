@@ -20,7 +20,6 @@ int main() {
     GetConsoleMode(hOut, &dwMode);
     dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
     SetConsoleMode(hOut, dwMode);
-
     SetConsoleOutputCP(CP_UTF8);
 #endif
 
@@ -99,18 +98,21 @@ int main() {
                     strcpy(plateau[x4][y4], "4");
                 }
                 break;
+            
             case 1:
                 // Charger les scores depuis le fichier
                 chargerScores("scores.dat", scores, &nbScores);
                 chargerPartie("sauvegarde.dat", plateau, &x1, &y1, &x2, &y2,
                               &x3, &y3, &x4, &y4, &tour, &GameMode, &state);
                 break;
+            
             case 2:
                 // Charger les scores depuis le fichier
                 chargerScores("scores.dat", scores, &nbScores);
                 initialiserDemo(plateau, &x1, &y1, &x2, &y2,
                                 &x3, &y3, &x4, &y4, &tour, &GameMode, &state);
                 break;
+            
             case 3:
                 clearConsole(); // Effacer la console
                 printf("\n QUORIDOR\n");
@@ -137,6 +139,7 @@ int main() {
                     }
                 } while (choix != 'm' && choix != 'M');
                 break;
+            
             case 4:
                 // Charger les scores depuis le fichier
                 chargerScores("scores.dat", scores, &nbScores);
@@ -146,6 +149,7 @@ int main() {
                 getchar();
                 getchar(); // Attendre que l'utilisateur appuie sur Entrée
                 break;
+            
             case 5:
                 exit(0);
             default:
