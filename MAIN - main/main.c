@@ -14,6 +14,7 @@ int main() {
     int nbScores = 0;    // Nombre actuel de joueurs dans les scores
 
     srand(time(NULL));
+
 #ifdef _WIN32
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
@@ -24,7 +25,6 @@ int main() {
 #endif
 
     int choix;
-
     do {
         // Affichage du menu
         printf("\n");
@@ -92,10 +92,12 @@ int main() {
                 initialiserPlateau(plateau);
                 strcpy(plateau[x1][y1], "1");
                 strcpy(plateau[x2][y2], "2");
+                state = (GameState){0, 0, 0, 0, 0, 0, 'V', 10, 10, 0, 0};
 
                 if (GameMode == 4) {
                     strcpy(plateau[x3][y3], "3");
                     strcpy(plateau[x4][y4], "4");
+                    state = (GameState){0, 0, 0, 0, 0, 0, 'V', 5, 5, 5, 5};
                 }
                 break;
             
@@ -175,8 +177,9 @@ int main() {
                         printf("\nActions possibles :\n");
                         printf("- Déplacez votre pion avec : z/q/s/d.\n");
                         printf("- Appuyez sur 'a' pour placer une barrière.\n");
+                        printf("- Appuyez sur Espace pour passer votre tour.\n");
                         printf("- Appuyez sur 'T' pour sauvegarder.\n");
-                        printf("Appuyez sur Q pour quitter...");
+                        printf("- Appuyez sur Q pour quitter...");
                     } else {
                         printf("\nPlacement barrières :\n");
                         printf("- Déplacez la barrière avec z/q/s/d.\n");
@@ -189,8 +192,9 @@ int main() {
                         printf("\nActions possibles :\n");
                         printf("- Déplacez votre pion avec les flèches du clavier.\n");
                         printf("- Appuyez sur 'a' pour placer une barrière.\n");
+                        printf("- Appuyez sur Espace pour passer votre tour.\n");
                         printf("- Appuyez sur 'T' pour sauvegarder.\n");
-                        printf("Appuyez sur Q pour quitter...");
+                        printf("- Appuyez sur Q pour quitter...");
                     } else {
                         printf("\nPlacement barrières :\n");
                         printf("- Déplacez la barrière avec les flèches du clavier.\n");
@@ -203,8 +207,9 @@ int main() {
                         printf("\nActions possibles :\n");
                         printf("- Déplacez votre pion avec : t/f/g/h.\n");
                         printf("- Appuyez sur 'a' pour placer une barrière.\n");
+                        printf("- Appuyez sur Espace pour passer votre tour.\n");
                         printf("- Appuyez sur 'T' pour sauvegarder.\n");
-                        printf("Appuyez sur Q pour quitter...");
+                        printf("- Appuyez sur Q pour quitter...");
                     } else {
                         printf("\nPlacement barrières :\n");
                         printf("- Déplacez la barrière avec t/f/g/h.\n");
@@ -217,8 +222,9 @@ int main() {
                         printf("\nActions possibles :\n");
                         printf("- Déplacez votre pion avec : i/j/k/l.\n");
                         printf("- Appuyez sur 'a' pour placer une barrière.\n");
+                        printf("- Appuyez sur Espace pour passer votre tour.\n");
                         printf("- Appuyez sur 'T' pour sauvegarder.\n");
-                        printf("Appuyez sur Q pour quitter...");
+                        printf("- Appuyez sur Q pour quitter...");
                     } else {
                         printf("\nPlacement barrières :\n");
                         printf("- Déplacez la barrière avec i/j/k/l.\n");

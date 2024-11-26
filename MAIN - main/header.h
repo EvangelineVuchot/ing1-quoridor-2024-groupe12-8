@@ -20,6 +20,7 @@
 #include <fcntl.h>
 #endif
 
+// Taille du Plateau 9x9
 #define SIZE 19
 #define PLAYER1 '1'
 #define PLAYER2 '2'
@@ -27,8 +28,6 @@
 #define PLAYER4 '4'
 #define PSEUDO 50
 
-// Taille du Plateau 9x9
-#define SIZE 19
 // Caractères de dessin de boîte
 #define VERTICAL_LINE       "║"
 #define HORIZONTAL_LINE     "═"

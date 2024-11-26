@@ -47,19 +47,15 @@ void afficherPlateau(char plateau[SIZE][SIZE][4], int GameMode, GameState *state
 #ifdef _WIN32
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
-
     printf("  ");
     for (int i = 0; i < SIZE / 2; i++) {
         printf("%2d  ", i);
     }
     printf("             INFORMATIONS JOUEURS\n");
-
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             char *c = plateau[i][j];
-            int isBarrierTemp = 0;
-
-            // Vérifier si une barrière est en cours de placement
+            int isBarrierTemp = 0; // Vérifier si une barrière est en cours de placement
             if ((state->modePlacement1 || state->modePlacement2 ||
                  state->modePlacement3 || state->modePlacement4)) {
                 if (state->orientation == 'V') {
@@ -230,19 +226,14 @@ int barriereEntre(int x1, int y1, int x2, int y2,
 
 // Fonction pour déplacer un pion avec gestion du saut
 void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
-                  char direction, char joueur,
-                  int x1, int y1, int x2, int y2,
+                  char direction, char joueur, int x1, int y1, int x2, int y2,
                   int x3, int y3, int x4, int y4, int GameMode) {
     int newX = *x, newY = *y;
     int opponentX = -1, opponentY = -1;
     int opponentFound = 0;
-
-    // Variables pour les positions potentielles des adversaires
-    int oppX[3], oppY[3];
+    int oppX[3], oppY[3]; // Variables pour les positions potentielles des adversaires
     int oppCount = 0;
-
-    // Remplir les positions des adversaires en fonction du joueur actuel
-    if (GameMode == 2) {
+    if (GameMode == 2) { // Remplir les positions des adversaires en fonction du joueur actuel
         if (joueur == PLAYER1) {
             oppX[0] = x2; oppY[0] = y2; oppCount = 1;
         } else if (joueur == PLAYER2) {
@@ -256,7 +247,6 @@ void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
         if (joueur != PLAYER4) { oppX[idx] = x4; oppY[idx++] = y4; }
         oppCount = idx;
     }
-
     // Calcul du déplacement souhaité
     if (joueur == PLAYER1) {
         if (direction == 'z' && *x > 1) {
@@ -308,8 +298,7 @@ void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
         }
     }
 
-    // Vérifier s'il y a un pion adverse à la position cible
-    for (int i = 0; i < oppCount; i++) {
+    for (int i = 0; i < oppCount; i++) { // Vérifier s'il y a un pion adverse à la position cible
         if (newX == oppX[i] && newY == oppY[i]) {
             opponentX = oppX[i];
             opponentY = oppY[i];
@@ -317,12 +306,9 @@ void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
             break;
         }
     }
-
-    if (opponentFound) {
-        // Tentative de saut par-dessus l'adversaire
+    if (opponentFound) { // Tentative de saut par-dessus l'adversaire
         int jumpX = opponentX + (opponentX - *x);
         int jumpY = opponentY + (opponentY - *y);
-
         // Vérifier les limites du plateau
         if (jumpX >= 1 && jumpX <= SIZE - 2 && jumpY >= 1 && jumpY <= SIZE - 2) {
             // Vérifier s'il n'y a pas de barrière entre l'adversaire et la case de saut
@@ -371,18 +357,13 @@ void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
             char strJoueur[2] = {joueur, '\0'};
             strcpy(plateau[*x][*y], strJoueur);
             return;
-        }
-        // Si aucun déplacement n'est possible, annuler le mouvement
+        } // Si aucun déplacement n'est possible, annuler le mouvement
         return;
-    }
-
-    // Vérifier s'il y a une barrière entre l'ancienne et la nouvelle position
+    } // Vérifier s'il y a une barrière entre l'ancienne et la nouvelle position
     if (barriereEntre(*x, *y, newX, newY, plateau)) {
         return;
     }
-
-    // Vérifier si la nouvelle case est libre
-    if (strcmp(plateau[newX][newY], " ") == 0) {
+    if (strcmp(plateau[newX][newY], " ") == 0) { // Vérifier si la nouvelle case est libre
         strcpy(plateau[*x][*y], " ");
         *x = newX;
         *y = newY;
@@ -437,35 +418,27 @@ void deplacerBarriere(int *x, int *y, int direction, char joueur,
             deltaY = 1;
         }
     }
-
     *x += deltaX;
     *y += deltaY;
-
-    // Garder x et y dans les limites du plateau
-    if (*x < 1) *x = 1;
+    if (*x < 1) *x = 1; // Garder x et y dans les limites du plateau
     if (*x > SIZE - 3) *x = SIZE - 3; // Ajusté pour barrière de taille 4
     if (*y < 1) *y = 1;
     if (*y > SIZE - 3) *y = SIZE - 3; // Ajusté pour barrière de taille 4
 }
 
-void placerBarriere(char plateau[SIZE][SIZE][4], int x, int y,
-                    char orientation, GameState *state, int joueur) { // Placer une barrière
+void placerBarriere(char plateau[SIZE][SIZE][4], int x, int y, char orientation, GameState *state, int joueur) {
     int *nb_barrieres_joueur;
-
-    // Sélection du compteur de barrières en fonction du joueur
-    switch (joueur) {
+    switch (joueur) { // Sélection du compteur de barrières en fonction du joueur
         case 1: nb_barrieres_joueur = &state->nb_barrieres1; break;
         case 2: nb_barrieres_joueur = &state->nb_barrieres2; break;
         case 3: nb_barrieres_joueur = &state->nb_barrieres3; break;
         case 4: nb_barrieres_joueur = &state->nb_barrieres4; break;
         default: return;
     }
-
     if (*nb_barrieres_joueur <= 0) {
         printf("Vous n'avez plus de barrières à placer !\n");
         return;
     }
-
     if (orientation == 'V') {
         if (x > 0 && x < SIZE - 3) {
             strcpy(plateau[x - 1][y], "B");
@@ -591,31 +564,24 @@ void initialiserDemo(char plateau[SIZE][SIZE][4], int *x1, int *y1,
 void Pseudo(Joueurs pseudosPartie[4], int *GameMode, Joueurs scores[], int *nbScores) {
     for (int i = 0; i < *GameMode; i++) {
         int c;
-        while ((c = getchar()) != '\n' && c != EOF) {
-            // Consommer le caractère '\n' restant dans le tampon
-        }
+        while ((c = getchar()) != '\n' && c != EOF) {} // Consommer le caractère '\n' restant dans le tampon
         printf("\n");
         printf("\n");
         printf("                                            Saisir le pseudo du joueur %d (50 caractères maximum) :", i + 1);
-        fgets(pseudosPartie[i].pseudos, PSEUDO, stdin);
-        // Supprimer le caractère '\n' si présent
+        fgets(pseudosPartie[i].pseudos, PSEUDO, stdin); // Supprimer le caractère '\n' si présent
         size_t len = strlen(pseudosPartie[i].pseudos);
         if (len > 0 && pseudosPartie[i].pseudos[len - 1] == '\n') {
             pseudosPartie[i].pseudos[len - 1] = '\0';
         }
-
-        // Vérifier si le pseudonyme existe déjà dans les scores
-        int found = 0;
+        int found = 0; // Vérifier si le pseudonyme existe déjà dans les scores
         for (int j = 0; j < *nbScores; j++) {
-            if (strcmp(scores[j].pseudos, pseudosPartie[i].pseudos) == 0) {
-                // Pseudonyme trouvé, récupérer le score
+            if (strcmp(scores[j].pseudos, pseudosPartie[i].pseudos) == 0) { // Pseudonyme trouvé, récupérer le score
                 pseudosPartie[i].score = scores[j].score;
                 found = 1;
                 break;
             }
         }
-        if (!found) {
-            // Nouveau joueur, l'ajouter à la liste des scores
+        if (!found) { // Nouveau joueur, l'ajouter à la liste des scores
             strcpy(scores[*nbScores].pseudos, pseudosPartie[i].pseudos);
             scores[*nbScores].score = 0;
             pseudosPartie[i].score = 0;
