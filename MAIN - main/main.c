@@ -9,8 +9,8 @@ int main() {
     int tour;
     int GameMode;
     GameState state;
-    Pseudos pseudos[4];
-    Pseudos scores[100]; // Tableau pour stocker jusqu'à 100 joueurs
+    Joueurs pseudos[4];
+    Joueurs scores[100]; // Tableau pour stocker jusqu'à 100 joueurs
     int nbScores = 0;    // Nombre actuel de joueurs dans les scores
 
     srand(time(NULL));

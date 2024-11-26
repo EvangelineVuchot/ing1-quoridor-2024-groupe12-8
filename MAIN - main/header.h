@@ -27,6 +27,8 @@
 #define PLAYER4 '4'
 #define PSEUDO 50
 
+// Taille du Plateau 9x9
+#define SIZE 19
 // Caractères de dessin de boîte
 #define VERTICAL_LINE       "║"
 #define HORIZONTAL_LINE     "═"
@@ -55,12 +57,12 @@ typedef struct {
 typedef struct {
     char pseudos[PSEUDO];
     int score;
-} Pseudos;
+} Joueurs;
 
 // Déclarations des fonctions
 void initialiserPlateau(char plateau[SIZE][SIZE][4]);
 
-void afficherPlateau(char plateau[SIZE][SIZE][4], int Gamemode, GameState *state, Pseudos pseudos[]);
+void afficherPlateau(char plateau[SIZE][SIZE][4], int Gamemode, GameState *state, Joueurs pseudos[]);
 int lireTouche();
 void clearConsole();
 
@@ -77,7 +79,7 @@ int estCheminValide(char plateau[SIZE][SIZE][4], int startX, int startY, int tar
 int peutPlacerBarriere(char plateau[SIZE][SIZE][4], int x, int y, char orientation,
                        int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int GameMode);
 
-void afficherEcranVictoire(int joueur, Pseudos pseudos[4]);
+void afficherEcranVictoire(int joueur, Joueurs pseudos[4]);
 
 void sauvegarderPartie(const char *nomFichier, char plateau[SIZE][SIZE][4],
                        int x1, int y1, int x2, int y2,
@@ -94,12 +96,12 @@ void initialiserDemo(char plateau[SIZE][SIZE][4], int *x1, int *y1,
                      int *x4, int *y4, int *tour, int *GameMode, GameState *state);
 
 // Déclarations des fonctions pour la gestion des scores
-void chargerScores(const char *nomFichier, Pseudos scores[], int *nbScores);
-void sauvegarderScores(const char *nomFichier, Pseudos scores[], int nbScores);
-void mettreAJourScore(Pseudos scores[], int nbScores, const char *pseudo);
-void afficherScores(Pseudos scores[], int nbScores);
+void chargerScores(const char *nomFichier, Joueurs scores[], int *nbScores);
+void sauvegarderScores(const char *nomFichier, Joueurs scores[], int nbScores);
+void mettreAJourScore(Joueurs scores[], int nbScores, const char *pseudo);
+void afficherScores(Joueurs scores[], int nbScores);
 
 // Modification de la déclaration de la fonction Pseudo
-void Pseudo(Pseudos pseudosPartie[4], int *GameMode, Pseudos scores[], int *nbScores);
+void Pseudo(Joueurs pseudosPartie[4], int *GameMode, Joueurs scores[], int *nbScores);
 
 #endif // HEADER_H

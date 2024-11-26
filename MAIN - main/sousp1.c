@@ -43,7 +43,7 @@ void initialiserPlateau(char plateau[SIZE][SIZE][4]) {
 }
 
 // Fonction pour afficher le plateau
-void afficherPlateau(char plateau[SIZE][SIZE][4], int GameMode, GameState *state, Pseudos pseudos[]) {
+void afficherPlateau(char plateau[SIZE][SIZE][4], int GameMode, GameState *state, Joueurs pseudos[]) {
 #ifdef _WIN32
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
@@ -55,7 +55,6 @@ void afficherPlateau(char plateau[SIZE][SIZE][4], int GameMode, GameState *state
     printf("             INFORMATIONS JOUEURS\n");
 
     for (int i = 0; i < SIZE; i++) {
-        printf("%2d ", i / 2); // Afficher les numéros de ligne
         for (int j = 0; j < SIZE; j++) {
             char *c = plateau[i][j];
             int isBarrierTemp = 0;
@@ -345,10 +344,8 @@ void deplacerPion(char plateau[SIZE][SIZE][4], int *x, int *y,
         int deltaX = opponentX - *x;
         int deltaY = opponentY - *y;
 
-        // Déterminer les mouvements diagonaux possibles
-        int diagX1 = opponentX - deltaY;
+        int diagX1 = opponentX - deltaY; // Déterminer les mouvements diagonaux possibles
         int diagY1 = opponentY + deltaX;
-
         int diagX2 = opponentX + deltaY;
         int diagY2 = opponentY - deltaX;
 
@@ -451,9 +448,8 @@ void deplacerBarriere(int *x, int *y, int direction, char joueur,
     if (*y > SIZE - 3) *y = SIZE - 3; // Ajusté pour barrière de taille 4
 }
 
-// Fonction pour placer définitivement une barrière
 void placerBarriere(char plateau[SIZE][SIZE][4], int x, int y,
-                    char orientation, GameState *state, int joueur) {
+                    char orientation, GameState *state, int joueur) { // Placer une barrière
     int *nb_barrieres_joueur;
 
     // Sélection du compteur de barrières en fonction du joueur
@@ -490,7 +486,7 @@ void placerBarriere(char plateau[SIZE][SIZE][4], int x, int y,
 }
 
 // Fonction pour afficher l'écran de victoire
-void afficherEcranVictoire(int joueur, Pseudos pseudos[4]) {
+void afficherEcranVictoire(int joueur, Joueurs pseudos[4]) {
     printf("\n\n");
     printf("********************************\n");
     printf("*                              *\n");
@@ -590,7 +586,7 @@ void initialiserDemo(char plateau[SIZE][SIZE][4], int *x1, int *y1,
 }
 
 // Fonction pour saisir et afficher les pseudos des joueurs
-void Pseudo(Pseudos pseudosPartie[4], int *GameMode, Pseudos scores[], int *nbScores) {
+void Pseudo(Joueurs pseudosPartie[4], int *GameMode, Joueurs scores[], int *nbScores) {
     for (int i = 0; i < *GameMode; i++) {
         int c;
         while ((c = getchar()) != '\n' && c != EOF) {
@@ -635,7 +631,7 @@ void Pseudo(Pseudos pseudosPartie[4], int *GameMode, Pseudos scores[], int *nbSc
 }
 
 // Fonction pour charger les scores depuis le fichier
-void chargerScores(const char *nomFichier, Pseudos scores[], int *nbScores) {
+void chargerScores(const char *nomFichier, Joueurs scores[], int *nbScores) {
     FILE *f = fopen(nomFichier, "rb");
     if (f == NULL) {
         // Le fichier n'existe pas encore, initialiser nbScores à 0
@@ -644,13 +640,13 @@ void chargerScores(const char *nomFichier, Pseudos scores[], int *nbScores) {
     }
 
     fread(nbScores, sizeof(int), 1, f);
-    fread(scores, sizeof(Pseudos), *nbScores, f);
+    fread(scores, sizeof(Joueurs), *nbScores, f);
 
     fclose(f);
 }
 
 // Fonction pour sauvegarder les scores dans le fichier
-void sauvegarderScores(const char *nomFichier, Pseudos scores[], int nbScores) {
+void sauvegarderScores(const char *nomFichier, Joueurs scores[], int nbScores) {
     FILE *f = fopen(nomFichier, "wb");
     if (f == NULL) {
         perror("Erreur lors de l'ouverture du fichier de scores");
@@ -658,24 +654,25 @@ void sauvegarderScores(const char *nomFichier, Pseudos scores[], int nbScores) {
     }
 
     fwrite(&nbScores, sizeof(int), 1, f);
-    fwrite(scores, sizeof(Pseudos), nbScores, f);
+    fwrite(scores, sizeof(Joueurs), nbScores, f);
 
     fclose(f);
 }
 
 // Fonction pour mettre à jour le score d'un joueur
-void mettreAJourScore(Pseudos scores[], int nbScores, const char *pseudo) {
+void mettreAJourScore(Joueurs scores[], int nbScores, const char *pseudo) {
     for (int i = 0; i < nbScores; i++) {
         if (strcmp(scores[i].pseudos, pseudo) == 0) {
             scores[i].score += 1; // Incrémenter le score du joueur
             return;
         }
     }
-    // Si le pseudo n'est pas trouvé, l'ajouter (cela ne devrait pas arriver si nous gérons bien les pseudos)
+    // Si le pseudo n'est pas trouvé, l'ajouter
+    // (cela ne devrait pas arriver si nous gérons bien les pseudos)
 }
 
 // Fonction pour afficher les scores
-void afficherScores(Pseudos scores[], int nbScores) {
+void afficherScores(Joueurs scores[], int nbScores) {
     printf("\n\n=== Scores des joueurs ===\n");
     for (int i = 0; i < nbScores; i++) {
         printf("%s : %d point(s)\n", scores[i].pseudos, scores[i].score);
