@@ -84,12 +84,12 @@ void afficherEcranVictoire(int joueur, Joueurs pseudos[4]);
 void sauvegarderPartie(const char *nomFichier, char plateau[SIZE][SIZE][4],
                        int x1, int y1, int x2, int y2,
                        int x3, int y3, int x4, int y4,
-                       int tour, int GameMode, GameState *state);
+                       int tour, int GameMode, GameState *state, Joueurs pseudos[4]);
 
 void chargerPartie(const char *nomFichier, char plateau[SIZE][SIZE][4],
                    int *x1, int *y1, int *x2, int *y2,
                    int *x3, int *y3, int *x4, int *y4,
-                   int *tour, int *GameMode, GameState *state);
+                   int *tour, int *GameMode, GameState *state, Joueurs pseudos[4]);
 
 void initialiserDemo(char plateau[SIZE][SIZE][4], int *x1, int *y1,
                      int *x2, int *y2, int *x3, int *y3,
